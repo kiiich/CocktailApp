@@ -12,12 +12,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     private let cocktailsNames = [
         "margarita",
         "rom",
         "vodka",
-        "gin",
+        "cuba_libra",
         "milk"
     ]
     
@@ -57,7 +58,10 @@ class ViewController: UIViewController {
                     if self.cocktails.count == 0 {
                         return
                     }
+                    
+                    self.titleLabel.text = self.cocktails[0].title
                     self.descriptionLabel.text = self.cocktails[0].strInstructions
+                    
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -114,6 +118,12 @@ struct Cocktails: Decodable {
     let strDrink: String?
     let strInstructions: String?
     let strDrinkThumb: String?
+    let strCategory: String?
+    
+    var title: String {
+        "\(strDrink ?? "") (\(strCategory?.lowercased() ?? ""))"
+    }
+    
 }
 
 struct DataCocktails: Decodable {
