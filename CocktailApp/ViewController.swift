@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         "water"
     ]
     
-    private var cocktails: [Cocktails] = []
+    private var cocktail: Cocktail?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +44,8 @@ class ViewController: UIViewController {
     
     private func fetchData(cocktailName: String) {
         
+        cocktail = nil
+        
         let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + cocktailName
         
         guard let url = URL(string: urlString) else { return }
@@ -55,26 +57,38 @@ class ViewController: UIViewController {
             }
             
             do {
-                self.cocktails = try JSONDecoder().decode(DataCocktails.self, from: data).drinks ?? []
+                let cocktails = try JSONDecoder().decode(DataCocktails.self, from: data).drinks ?? []
+                
+                if cocktails.isEmpty {
+                    return
+                }
+                
+                self.cocktail = cocktails[0]
+                
                 DispatchQueue.main.async {
-                    if self.cocktails.count == 0 {
+                    
+                    guard let cocktail = self.cocktail else {
                         return
                     }
-                    
-                    self.titleLabel.text = self.cocktails[0].title
-                    self.descriptionLabel.text = self.cocktails[0].strInstructions
+
+                    self.titleLabel.text = cocktail.title
+                    self.descriptionLabel.text = cocktail.strInstructions
                     
                 }
             } catch let error {
                 print(error.localizedDescription)
             }
             
-            self.fetchImage(urlString: self.cocktails[0].strDrinkThumb ?? "")
+            self.fetchImage(urlString: self.cocktail?.strDrinkThumb ?? "")
             
         }.resume()
     }
     
     private func fetchImage(urlString: String) {
+        
+        if urlString.isEmpty {
+            return
+        }
         
         guard let urlImage = URL(string: urlString) else { return }
         
@@ -116,7 +130,7 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
 }
 
-struct Cocktails: Decodable {
+struct Cocktail: Decodable {
     let strDrink: String?
     let strInstructions: String?
     let strDrinkThumb: String?
@@ -129,5 +143,5 @@ struct Cocktails: Decodable {
 }
 
 struct DataCocktails: Decodable {
-    let drinks: [Cocktails]?
+    let drinks: [Cocktail]?
 }
