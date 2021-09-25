@@ -63,24 +63,29 @@ class ViewController: UIViewController {
                 print(error.localizedDescription)
             }
             
-            guard let urlImage = URL(string: self.cocktails[0].strDrinkThumb ?? "") else { return }
-            
-            URLSession.shared.dataTask(with: urlImage) { data, _, error in
-                guard let data = data else {
-                    print(error?.localizedDescription ?? "No error description")
-                    return
-                }
-                
-                guard let image = UIImage(data: data) else { return }
-                
-                DispatchQueue.main.async {
-                    self.imageView.image = image
-                    //self.activityIndicator.stopAnimating()
-                }
-                
-            }.resume()
+            self.fetchImage(urlString: self.cocktails[0].strDrinkThumb ?? "")
             
         }.resume()
+    }
+    
+    private func fetchImage(urlString: String) {
+        
+        guard let urlImage = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: urlImage) { data, _, error in
+            guard let data = data else {
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+            
+            guard let image = UIImage(data: data) else { return }
+            
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+            
+        }.resume()
+        
     }
 
 }
