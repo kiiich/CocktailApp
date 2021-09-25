@@ -15,11 +15,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     
     private let cocktailsNames = [
+        "beer",
         "margarita",
         "rom",
         "vodka",
         "cuba_libra",
-        "milk"
+        "white_russian",
+        "water"
     ]
     
     private var cocktails: [Cocktails] = []
@@ -27,7 +29,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentCocktailIndex = 2
+        let currentCocktailIndex = 3
         
         fetchData(cocktailName: cocktailsNames[currentCocktailIndex])
         
