@@ -13,25 +13,27 @@ class ViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
     
     private let cocktailsNames = [
-        "beer",
-        "margarita",
-        "rom",
-        "vodka",
-        "cuba_libra",
-        "white_russian",
-        "water"
+        ("Beer", "beer"),
+        ("Margarita", "margarita"),
+        ("Rum", "rum"),
+        ("Cuba Libra", "cuba_libra"),
+        ("Vodka", "vodka"),
+        ("White Russian", "white_russian"),
+        ("Water", "water")
     ]
     
-    private var cocktail: Cocktail?
+    private let networkManager = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let currentCocktailIndex = 3
         
-        fetchData(cocktailName: cocktailsNames[currentCocktailIndex])
+        fetchData(cocktailName: cocktailsNames[currentCocktailIndex].1)
         
         picker.dataSource = self
         picker.delegate = self
@@ -42,72 +44,50 @@ class ViewController: UIViewController {
         imageView.layer.cornerRadius = imageView.frame.height / 2
     }
     
-    private func fetchData(cocktailName: String) {
+   private func fetchData(cocktailName: String) {
         
-        cocktail = nil
-        
-        let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + cocktailName
-        
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
+       setUpElements(isDataLoading: true)
+       
+        networkManager.fetchData(cocktailName: cocktailName) { cocktail in
+            
+            guard let cocktail = cocktail else {
                 return
             }
             
-            do {
-                let cocktails = try JSONDecoder().decode(DataCocktails.self, from: data).drinks ?? []
-                
-                if cocktails.isEmpty {
+            DispatchQueue.main.async {
+                self.titleLabel.text = cocktail.title
+                self.descriptionLabel.text = cocktail.strInstructions
+            }
+            
+            self.networkManager.fetchImage(urlString: cocktail.strDrinkThumb ?? "") { image in
+               
+                guard let image = image else {
                     return
                 }
                 
-                self.cocktail = cocktails[0]
-                
                 DispatchQueue.main.async {
-                    
-                    guard let cocktail = self.cocktail else {
-                        return
-                    }
-
-                    self.titleLabel.text = cocktail.title
-                    self.descriptionLabel.text = cocktail.strInstructions
-                    
+                    self.imageView.image = image
+                    self.setUpElements(isDataLoading: false)
                 }
-            } catch let error {
-                print(error.localizedDescription)
             }
-            
-            self.fetchImage(urlString: self.cocktail?.strDrinkThumb ?? "")
-            
-        }.resume()
+        }
     }
     
-    private func fetchImage(urlString: String) {
+    private func setUpElements(isDataLoading: Bool) {
         
-        if urlString.isEmpty {
-            return
+        titleLabel.isHidden = isDataLoading
+        descriptionLabel.isHidden = isDataLoading
+        imageView.isHidden = isDataLoading
+        indicator.isHidden = !isDataLoading
+        
+        if isDataLoading {
+            indicator.startAnimating()
+        } else {
+            indicator.stopAnimating()
         }
         
-        guard let urlImage = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: urlImage) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            
-            guard let image = UIImage(data: data) else { return }
-            
-            DispatchQueue.main.async {
-                self.imageView.image = image
-            }
-            
-        }.resume()
-        
     }
-
+    
 }
 
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -121,27 +101,11 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        cocktailsNames[row]
+        cocktailsNames[row].0
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        fetchData(cocktailName: cocktailsNames[row])
+        fetchData(cocktailName: cocktailsNames[row].1)
     }
     
-}
-
-struct Cocktail: Decodable {
-    let strDrink: String?
-    let strInstructions: String?
-    let strDrinkThumb: String?
-    let strCategory: String?
-    
-    var title: String {
-        "\(strDrink ?? "") (\(strCategory?.lowercased() ?? ""))"
-    }
-    
-}
-
-struct DataCocktails: Decodable {
-    let drinks: [Cocktail]?
 }
