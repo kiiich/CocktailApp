@@ -118,7 +118,7 @@
         <!--Navigation Controller-->
         <scene sceneID="dDu-iX-sWV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4CN-Xi-50d" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4CN-Xi-50d" customClass="NavigationController" customModule="CocktailApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6Z-ce-A2t">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

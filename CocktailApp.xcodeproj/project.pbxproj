@@ -17,6 +17,7 @@
 		010B4F1926FFB0E40031B6AF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B4F1826FFB0E40031B6AF /* NetworkManager.swift */; };
 		0190143E2700A29E0003A979 /* DataManeger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190143D2700A29E0003A979 /* DataManeger.swift */; };
 		019014402700C6700003A979 /* IngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190143F2700C6700003A979 /* IngredientsViewController.swift */; };
+		01F29E1E2700F1C400B8C263 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F29E1D2700F1C400B8C263 /* NavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		010B4F1826FFB0E40031B6AF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0190143D2700A29E0003A979 /* DataManeger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManeger.swift; sourceTree = "<group>"; };
 		0190143F2700C6700003A979 /* IngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsViewController.swift; sourceTree = "<group>"; };
+		01F29E1D2700F1C400B8C263 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				0190143F2700C6700003A979 /* IngredientsViewController.swift */,
+				01F29E1D2700F1C400B8C263 /* NavigationController.swift */,
 				010B4F0626FF8E7D0031B6AF /* ViewController.swift */,
 			);
 			path = ViewControllers;
@@ -191,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				010B4F0726FF8E7D0031B6AF /* ViewController.swift in Sources */,
+				01F29E1E2700F1C400B8C263 /* NavigationController.swift in Sources */,
 				010B4F1726FFB0B70031B6AF /* CocktailsData.swift in Sources */,
 				019014402700C6700003A979 /* IngredientsViewController.swift in Sources */,
 				010B4F1926FFB0E40031B6AF /* NetworkManager.swift in Sources */,
