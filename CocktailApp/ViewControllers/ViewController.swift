@@ -17,11 +17,12 @@ class ViewController: UIViewController {
     
     private let cocktailsNames = DataManager.cocktailsNames
     private let networkManager = NetworkManager()
+    private var currentCocktail: Cocktail?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentCocktailIndex = 3
+        let currentCocktailIndex = 4
         
         fetchData(cocktailName: cocktailsNames[currentCocktailIndex].1)
         
@@ -34,8 +35,30 @@ class ViewController: UIViewController {
         imageView.layer.cornerRadius = imageView.frame.height / 2
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let ingredientsVc = segue.destination as? IngredientsViewController else { return }
+        
+        guard let cocktail = currentCocktail else {
+            return
+        }
+
+        let ingredients = [
+            cocktail.strIngredient1 ?? "",
+            cocktail.strIngredient2 ?? "",
+            cocktail.strIngredient3 ?? "",
+            cocktail.strIngredient4 ?? "",
+            cocktail.strIngredient5 ?? ""
+        ].filter { !$0.isEmpty }
+        
+        ingredientsVc.ingredients = ingredients
+        
+    }
+    
    private func fetchData(cocktailName: String) {
         
+       currentCocktail = nil
+       
        setUpElements(isDataLoading: true)
        
         networkManager.fetchData(cocktailName: cocktailName) { cocktail in
@@ -43,6 +66,8 @@ class ViewController: UIViewController {
             guard let cocktail = cocktail else {
                 return
             }
+            
+            self.currentCocktail = cocktail
             
             DispatchQueue.main.async {
                 self.titleLabel.text = cocktail.title
@@ -65,12 +90,16 @@ class ViewController: UIViewController {
         
     private func setUpElements(isDataLoading: Bool) {
             
+        
+        
         if isDataLoading {
             imageView.alpha = 0
             titleLabel.alpha = 0
             descriptionLabel.alpha = 0
             indicator.alpha = 1
             indicator.startAnimating()
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            
         } else {
            
             UIView.animate(
@@ -82,6 +111,7 @@ class ViewController: UIViewController {
                     self.descriptionLabel.alpha = 1
                     self.indicator.alpha = 0
                     self.indicator.stopAnimating()
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
                 }
         }
     }
