@@ -21,7 +21,7 @@ class DataManager {
         ("White Russian", "white_russian"),
         ("Cosmopolitan", "cosmopolitan"),
         ("Vodka", "vodka"),
-        ("Water", "water")
+        ("Bloody mary", "bloody_mary")
     ]
     
 }
