@@ -12,7 +12,7 @@ class DataManager {
     private init() {}
     
     static let cocktailsNames = [
-        ("Beer", "beer"),
+        ("Mojito", "mojito"),
         ("Rum", "rum"),
         ("Black Russian", "black_russian"),
         ("Margarita", "margarita"),
