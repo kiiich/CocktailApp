@@ -9,7 +9,7 @@ import UIKit
 
 class IngredientsViewController: UITableViewController {
 
-    var ingredients: [String] = []
+    var ingredients: [Ingredient] = []
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ingredients.count
@@ -23,7 +23,8 @@ class IngredientsViewController: UITableViewController {
         var content = cell.defaultContentConfiguration()
 
         content.image = UIImage(systemName: "star")
-        content.text = ingredients[indexPath.row]
+        content.text = ingredients[indexPath.row].name
+        content.secondaryText = ingredients[indexPath.row].measure
 
         content.imageProperties.tintColor = .systemPink
 

@@ -35,39 +35,46 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JqM-FB-ldY">
-                                <rect key="frame" x="0.0" y="620" width="414" height="216"/>
+                                <rect key="frame" x="0.0" y="626" width="414" height="216"/>
                             </pickerView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="VAe-7o-KlB">
                                 <rect key="frame" x="197" y="218" width="20" height="20"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6t9-w9-Ept">
+                                <rect key="frame" x="29" y="448" width="135.5" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" id="dml-cs-gPs"/>
+                                </constraints>
+                                <buttonConfiguration key="configuration" style="plain" title="Show ingredients"/>
+                                <connections>
+                                    <segue destination="GTe-lB-RZQ" kind="show" id="isz-pj-kvj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="poh-bC-be8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="5XN-jm-y0x"/>
                             <constraint firstItem="Ffe-H2-OK8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="CKm-3e-7dw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JqM-FB-ldY" secondAttribute="bottom" constant="26" id="D4Y-68-Fcz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JqM-FB-ldY" secondAttribute="bottom" constant="20" id="D4Y-68-Fcz"/>
                             <constraint firstItem="VAe-7o-KlB" firstAttribute="centerY" secondItem="Ffe-H2-OK8" secondAttribute="centerY" id="GeM-uN-CCb"/>
                             <constraint firstItem="poh-bC-be8" firstAttribute="top" secondItem="sHq-gP-Jw2" secondAttribute="bottom" constant="15" id="LSt-8i-uoJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="poh-bC-be8" secondAttribute="trailing" constant="40" id="NCE-I1-fEU"/>
+                            <constraint firstItem="6t9-w9-Ept" firstAttribute="top" secondItem="poh-bC-be8" secondAttribute="bottom" constant="4" id="Nzx-TY-UE1"/>
                             <constraint firstItem="sHq-gP-Jw2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="VLU-nJ-L1J"/>
                             <constraint firstItem="sHq-gP-Jw2" firstAttribute="top" secondItem="Ffe-H2-OK8" secondAttribute="bottom" constant="35" id="VhB-4e-1cp"/>
                             <constraint firstItem="Ffe-H2-OK8" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.267857" id="ad4-18-giv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sHq-gP-Jw2" secondAttribute="trailing" constant="40" id="e67-wg-g9T"/>
+                            <constraint firstItem="6t9-w9-Ept" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="29" id="hxg-xa-pNu"/>
                             <constraint firstItem="Ffe-H2-OK8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ieh-kI-3aq"/>
                             <constraint firstItem="JqM-FB-ldY" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="u8k-ow-hI4"/>
                             <constraint firstItem="VAe-7o-KlB" firstAttribute="centerX" secondItem="Ffe-H2-OK8" secondAttribute="centerX" id="vV1-c4-PcQ"/>
                             <constraint firstItem="JqM-FB-ldY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ymD-fo-Zrr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Cocktails Reciptes" id="j2v-al-7oy">
-                        <barButtonItem key="rightBarButtonItem" title="Ingredients" id="3rI-3E-rbD">
-                            <connections>
-                                <segue destination="GTe-lB-RZQ" kind="show" id="9dR-Ob-znr"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Cocktails Reciptes" id="j2v-al-7oy"/>
                     <connections>
+                        <outlet property="buttonShowIngredients" destination="6t9-w9-Ept" id="b5U-Ur-7bv"/>
                         <outlet property="descriptionLabel" destination="poh-bC-be8" id="dAH-JQ-uM2"/>
                         <outlet property="imageView" destination="Ffe-H2-OK8" id="vRS-S1-8pN"/>
                         <outlet property="indicator" destination="VAe-7o-KlB" id="FPR-p0-Chr"/>

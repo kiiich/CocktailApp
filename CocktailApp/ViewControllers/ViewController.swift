@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var buttonShowIngredients: UIButton!
     
     private let cocktailsNames = DataManager.cocktailsNames
     private let networkManager = NetworkManager()
@@ -43,14 +44,26 @@ class ViewController: UIViewController {
             return
         }
 
-        let ingredients = [
-            cocktail.strIngredient1 ?? "",
-            cocktail.strIngredient2 ?? "",
-            cocktail.strIngredient3 ?? "",
-            cocktail.strIngredient4 ?? "",
-            cocktail.strIngredient5 ?? ""
-        ].filter { !$0.isEmpty }
-        
+        let ingredients: [Ingredient] = [
+            Ingredient(
+                name: cocktail.strIngredient1 ?? "",
+                measure: cocktail.strMeasure1 ?? ""),
+            Ingredient(
+                name: cocktail.strIngredient2 ?? "",
+                measure: cocktail.strMeasure2 ?? ""),
+            Ingredient(
+                name: cocktail.strIngredient3 ?? "",
+                measure: cocktail.strMeasure3 ?? ""),
+            Ingredient(name:
+                cocktail.strIngredient4 ?? "",
+                measure: cocktail.strMeasure4 ?? ""),
+            Ingredient(name:
+                cocktail.strIngredient5 ?? "",
+                measure: cocktail.strMeasure5 ?? "")
+        ].filter { item in
+            !item.name.isEmpty
+        }
+
         ingredientsVc.ingredients = ingredients
         
     }
@@ -90,15 +103,14 @@ class ViewController: UIViewController {
         
     private func setUpElements(isDataLoading: Bool) {
             
-        
-        
         if isDataLoading {
             imageView.alpha = 0
             titleLabel.alpha = 0
             descriptionLabel.alpha = 0
             indicator.alpha = 1
             indicator.startAnimating()
-            navigationItem.rightBarButtonItem?.isEnabled = false
+            buttonShowIngredients.alpha = 0
+           
             
         } else {
            
@@ -109,6 +121,7 @@ class ViewController: UIViewController {
                     self.imageView.alpha = 1
                     self.titleLabel.alpha = 1
                     self.descriptionLabel.alpha = 1
+                    self.buttonShowIngredients.alpha = 1
                     self.indicator.alpha = 0
                     self.indicator.stopAnimating()
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
