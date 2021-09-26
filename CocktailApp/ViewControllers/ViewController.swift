@@ -15,16 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
-    
-    private let cocktailsNames = [
-        ("Beer", "beer"),
-        ("Margarita", "margarita"),
-        ("Rum", "rum"),
-        ("Cuba Libra", "cuba_libra"),
-        ("Vodka", "vodka"),
-        ("White Russian", "white_russian"),
-        ("Water", "water")
-    ]
+    private let cocktailsNames = DataManager.cocktailsNames
     
     private let networkManager = NetworkManager()
     
@@ -73,21 +64,52 @@ class ViewController: UIViewController {
         }
     }
     
-    private func setUpElements(isDataLoading: Bool) {
-            
-        titleLabel.isHidden = isDataLoading
-        descriptionLabel.isHidden = isDataLoading
-        imageView.isHidden = isDataLoading
-        indicator.isHidden = !isDataLoading
+    private func setGradient() {
         
-        if isDataLoading {
-            indicator.startAnimating()
-        } else {
-            indicator.stopAnimating()
-        }
+        let primaryColor = UIColor(
+            red: 210/255,
+            green: 109/255,
+            blue: 128/255,
+            alpha: 1
+        )
+        
+        let secondaryColor = UIColor(
+            red: 107/255,
+            green: 148/255,
+            blue: 230/255,
+            alpha: 1
+        )
+        
+        let gradient = CAGradientLayer()
+       
+        gradient.frame = view.bounds
+        gradient.colors = [primaryColor.cgColor, secondaryColor.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 0, y: 1)
+        
+        view.layer.insertSublayer(gradient, at: 0)
         
     }
     
+    private func setUpElements(isDataLoading: Bool) {
+            
+        if isDataLoading {
+            self.imageView.alpha = 0
+            self.titleLabel.alpha = 0
+            self.descriptionLabel.alpha = 0
+        } else {
+           
+            UIView.animate(
+                withDuration: 1,
+                delay: 0,
+                options: .curveLinear) {
+                    self.imageView.alpha = 1
+                    self.titleLabel.alpha = 1
+                    self.descriptionLabel.alpha = 1
+                }
+        }
+    }
 }
 
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
