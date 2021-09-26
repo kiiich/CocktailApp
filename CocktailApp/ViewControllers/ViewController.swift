@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonShowIngredients: UIButton!
     
     private let cocktailsNames = DataManager.cocktailsNames
-    private let networkManager = NetworkManager()
+    private let networkManager = NetworkManager.shared
     private var currentCocktail: Cocktail?
     
     override func viewDidLoad() {
@@ -54,11 +54,9 @@ class ViewController: UIViewController {
             Ingredient(
                 name: cocktail.strIngredient3 ?? "",
                 measure: cocktail.strMeasure3 ?? ""),
-            Ingredient(name:
-                cocktail.strIngredient4 ?? "",
+            Ingredient(name: cocktail.strIngredient4 ?? "",
                 measure: cocktail.strMeasure4 ?? ""),
-            Ingredient(name:
-                cocktail.strIngredient5 ?? "",
+            Ingredient(name: cocktail.strIngredient5 ?? "",
                 measure: cocktail.strMeasure5 ?? "")
         ].filter { item in
             !item.name.isEmpty
@@ -115,7 +113,7 @@ class ViewController: UIViewController {
         } else {
            
             UIView.animate(
-                withDuration: 1,
+                withDuration: 0.8,
                 delay: 0,
                 options: .curveLinear) {
                     self.imageView.alpha = 1

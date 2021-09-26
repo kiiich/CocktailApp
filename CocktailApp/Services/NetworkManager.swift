@@ -10,6 +10,10 @@ import UIKit
 
 class NetworkManager {
     
+    private init() { }
+    
+    static let shared = NetworkManager()
+    
     func fetchData(cocktailName: String, completionHandler: @escaping (Cocktail?) -> Void) {
         
         let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + cocktailName
