@@ -74,7 +74,7 @@ class ViewController: UIViewController {
     }
     
     private func setUpElements(isDataLoading: Bool) {
-        
+            
         titleLabel.isHidden = isDataLoading
         descriptionLabel.isHidden = isDataLoading
         imageView.isHidden = isDataLoading
