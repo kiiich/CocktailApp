@@ -10,8 +10,6 @@ import UIKit
 
 class NetworkManager {
     
-    private init() { }
-    
     static let shared = NetworkManager()
     
     func fetchData(cocktailName: String, completionHandler: @escaping (Cocktail?) -> Void) {
@@ -63,4 +61,7 @@ class NetworkManager {
             
         }.resume()
     }
+    
+    private init() { }
+    
 }

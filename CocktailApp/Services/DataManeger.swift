@@ -8,8 +8,6 @@
 import Foundation
 
 class DataManager {
-
-    private init() {}
     
     static let cocktailsNames = [
         ("Mojito", "mojito"),
@@ -21,7 +19,9 @@ class DataManager {
         ("White Russian", "white_russian"),
         ("Cosmopolitan", "cosmopolitan"),
         ("Vodka", "vodka"),
-        ("Bloody mary", "bloody_mary")
+        ("Bloody Mary", "bloody_mary")
     ]
+    
+    private init() {}
     
 }
