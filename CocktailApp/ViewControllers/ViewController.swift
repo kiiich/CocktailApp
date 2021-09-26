@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     private let cocktailsNames = DataManager.cocktailsNames
-    
     private let networkManager = NetworkManager()
     
     override func viewDidLoad() {
@@ -63,41 +62,15 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    private func setGradient() {
         
-        let primaryColor = UIColor(
-            red: 210/255,
-            green: 109/255,
-            blue: 128/255,
-            alpha: 1
-        )
-        
-        let secondaryColor = UIColor(
-            red: 107/255,
-            green: 148/255,
-            blue: 230/255,
-            alpha: 1
-        )
-        
-        let gradient = CAGradientLayer()
-       
-        gradient.frame = view.bounds
-        gradient.colors = [primaryColor.cgColor, secondaryColor.cgColor]
-        gradient.locations = [0.0, 1.0]
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 0, y: 1)
-        
-        view.layer.insertSublayer(gradient, at: 0)
-        
-    }
-    
     private func setUpElements(isDataLoading: Bool) {
             
         if isDataLoading {
-            self.imageView.alpha = 0
-            self.titleLabel.alpha = 0
-            self.descriptionLabel.alpha = 0
+            imageView.alpha = 0
+            titleLabel.alpha = 0
+            descriptionLabel.alpha = 0
+            indicator.alpha = 1
+            indicator.startAnimating()
         } else {
            
             UIView.animate(
@@ -107,6 +80,8 @@ class ViewController: UIViewController {
                     self.imageView.alpha = 1
                     self.titleLabel.alpha = 1
                     self.descriptionLabel.alpha = 1
+                    self.indicator.alpha = 0
+                    self.indicator.stopAnimating()
                 }
         }
     }

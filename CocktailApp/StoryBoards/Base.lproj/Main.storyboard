@@ -28,7 +28,7 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poh-bC-be8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poh-bC-be8">
                                 <rect key="frame" x="40" y="400.5" width="334" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
@@ -37,6 +37,9 @@
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JqM-FB-ldY">
                                 <rect key="frame" x="0.0" y="620" width="414" height="216"/>
                             </pickerView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="VAe-7o-KlB">
+                                <rect key="frame" x="197" y="195" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -44,6 +47,7 @@
                             <constraint firstItem="poh-bC-be8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="5XN-jm-y0x"/>
                             <constraint firstItem="Ffe-H2-OK8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="41" id="CKm-3e-7dw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JqM-FB-ldY" secondAttribute="bottom" constant="26" id="D4Y-68-Fcz"/>
+                            <constraint firstItem="VAe-7o-KlB" firstAttribute="centerY" secondItem="Ffe-H2-OK8" secondAttribute="centerY" id="GeM-uN-CCb"/>
                             <constraint firstItem="poh-bC-be8" firstAttribute="top" secondItem="sHq-gP-Jw2" secondAttribute="bottom" constant="15" id="LSt-8i-uoJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="poh-bC-be8" secondAttribute="trailing" constant="40" id="NCE-I1-fEU"/>
                             <constraint firstItem="sHq-gP-Jw2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="VLU-nJ-L1J"/>
@@ -52,6 +56,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sHq-gP-Jw2" secondAttribute="trailing" constant="40" id="e67-wg-g9T"/>
                             <constraint firstItem="Ffe-H2-OK8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ieh-kI-3aq"/>
                             <constraint firstItem="JqM-FB-ldY" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="u8k-ow-hI4"/>
+                            <constraint firstItem="VAe-7o-KlB" firstAttribute="centerX" secondItem="Ffe-H2-OK8" secondAttribute="centerX" id="vV1-c4-PcQ"/>
                             <constraint firstItem="JqM-FB-ldY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ymD-fo-Zrr"/>
                         </constraints>
                     </view>
@@ -59,6 +64,7 @@
                     <connections>
                         <outlet property="descriptionLabel" destination="poh-bC-be8" id="dAH-JQ-uM2"/>
                         <outlet property="imageView" destination="Ffe-H2-OK8" id="vRS-S1-8pN"/>
+                        <outlet property="indicator" destination="VAe-7o-KlB" id="FPR-p0-Chr"/>
                         <outlet property="picker" destination="JqM-FB-ldY" id="frY-X6-vwW"/>
                         <outlet property="titleLabel" destination="sHq-gP-Jw2" id="3vn-Eg-xEp"/>
                     </connections>

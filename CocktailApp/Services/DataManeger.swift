@@ -14,6 +14,7 @@ class DataManager {
     static let cocktailsNames = [
         ("Beer", "beer"),
         ("Rum", "rum"),
+        ("Black Russian", "black_russian"),
         ("Margarita", "margarita"),
         ("Cuba Libra", "cuba_libra"),
         ("Tequila Sunrise", "tequila_sunrise"),
