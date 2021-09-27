@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import UIKit
 
 class NetworkManager {
     
     static let shared = NetworkManager()
     
-    func fetchData(cocktailName: String, completionHandler: @escaping (Cocktail?) -> Void) {
+    func fetchData(cocktailName: String, completionHandler: @escaping (Cocktail) -> Void) {
         
         let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + cocktailName
         
@@ -41,7 +40,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchImage(urlString: String, completionHandler: @escaping (UIImage?) -> Void) {
+    func fetchImage(urlString: String, completionHandler: @escaping (Data) -> Void) {
         
         if urlString.isEmpty {
             return
@@ -55,9 +54,7 @@ class NetworkManager {
                 return
             }
             
-            guard let image = UIImage(data: data) else { return }
-            
-            completionHandler(image)
+            completionHandler(data)
             
         }.resume()
     }

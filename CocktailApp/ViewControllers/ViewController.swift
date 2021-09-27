@@ -74,10 +74,6 @@ class ViewController: UIViewController {
        
         networkManager.fetchData(cocktailName: cocktailName) { cocktail in
             
-            guard let cocktail = cocktail else {
-                return
-            }
-            
             self.currentCocktail = cocktail
             
             DispatchQueue.main.async {
@@ -85,11 +81,9 @@ class ViewController: UIViewController {
                 self.descriptionLabel.text = cocktail.strInstructions
             }
             
-            self.networkManager.fetchImage(urlString: cocktail.strDrinkThumb ?? "") { image in
+            self.networkManager.fetchImage(urlString: cocktail.strDrinkThumb ?? "") { imageData in
                
-                guard let image = image else {
-                    return
-                }
+                guard let image = UIImage(data: imageData) else { return }
                 
                 DispatchQueue.main.async {
                     self.imageView.image = image
