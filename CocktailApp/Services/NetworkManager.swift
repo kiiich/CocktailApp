@@ -11,54 +11,48 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
-    func fetchData(cocktailName: String, completionHandler: @escaping (Cocktail) -> Void) {
+    func fetchData(cocktailName: String, completionHandler: @escaping (Cocktail, Data?) -> Void) {
         
         let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + cocktailName
         
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, error in
+            
             guard let data = data else {
                 print(error?.localizedDescription ?? "No error description")
                 return
             }
             
+            var cocktails: [Cocktail] = []
+            
             do {
-                let cocktails = try JSONDecoder().decode(CocktailsData.self, from: data).drinks ?? []
-                
-                if cocktails.isEmpty {
-                    return
-                }
-                
-                let cocktail = cocktails[0]
-                
-                completionHandler(cocktail)
-                
+                cocktails = try JSONDecoder().decode(CocktailsData.self, from: data).drinks ?? []
             } catch let error {
                 print(error.localizedDescription)
             }
-        }.resume()
-    }
-    
-    func fetchImage(urlString: String, completionHandler: @escaping (Data) -> Void) {
-        
-        if urlString.isEmpty {
-            return
-        }
-        
-        guard let urlImage = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: urlImage) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
+            
+            guard let cocktail = cocktails.first else {
                 return
             }
             
-            completionHandler(data)
+            guard let url = URL(string: cocktail.strDrinkThumb ?? ""),
+                let imageData = try? Data(contentsOf: url) else {
+                
+                DispatchQueue.main.async {
+                    completionHandler(cocktail, nil)
+                }
+                return
+            }
+                
+            DispatchQueue.main.async {
+                completionHandler(cocktail, imageData)
+            }
             
         }.resume()
+        
     }
-    
+        
     private init() { }
     
 }

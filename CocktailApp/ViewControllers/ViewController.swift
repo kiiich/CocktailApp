@@ -72,24 +72,21 @@ class ViewController: UIViewController {
        
        setUpElements(isDataLoading: true)
        
-        networkManager.fetchData(cocktailName: cocktailName) { cocktail in
+        networkManager.fetchData(cocktailName: cocktailName) { cocktail, imageData in
             
             self.currentCocktail = cocktail
             
-            DispatchQueue.main.async {
-                self.titleLabel.text = cocktail.title
-                self.descriptionLabel.text = cocktail.strInstructions
+            self.titleLabel.text = cocktail.title
+            self.descriptionLabel.text = cocktail.strInstructions
+            
+            self.setUpElements(isDataLoading: false)
+            
+            guard let imageData = imageData, let image = UIImage(data: imageData) else {
+                return
             }
             
-            self.networkManager.fetchImage(urlString: cocktail.strDrinkThumb ?? "") { imageData in
+            self.imageView.image = image
                
-                guard let image = UIImage(data: imageData) else { return }
-                
-                DispatchQueue.main.async {
-                    self.imageView.image = image
-                    self.setUpElements(isDataLoading: false)
-                }
-            }
         }
     }
         
